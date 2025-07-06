@@ -23,21 +23,47 @@ function playRound(humanRps, computerRps){
     humanRps = humanRps.toLowerCase()
     computerRps = computerRps.toLowerCase()
     if (humanRps === computerRps){
-        return `It's a draw you chose ${humanRps} and the computer chose ${computerRps}`
+        console.log(`It's a draw you chose ${humanRps} and the computer chose ${computerRps}`)
+        return "draw"
     }
-    if (humanRps === "rock" && computerRps==="scissors" || humnanRps === "paper" && computerRps==="rock" || humnanRps === "scissors" && computerRps==="paper"){
-        return `You won! ${humanRps} beats ${computerRps}`
+    if (humanRps === "rock" && computerRps==="scissors" || humanRps === "paper" && computerRps==="rock" || humanRps === "scissors" && computerRps==="paper"){
+        console.log(`You won! ${humanRps} beats ${computerRps}`)
+        return "win"
     }
     else{
-        return `You lose! ${computerRps} beats ${humanRps}`
+        console.log(`You lose! ${computerRps} beats ${humanRps}`)
+        return "lost"
     }
 }
 
-console.log("Let's play!")
-let computerScore = 0;
-let humanScore = 0;
+function playGame(){
+    console.log("Let's play!")
+    let computerScore = 0;
+    let humanScore = 0;
 
-const humanSelection = getHumanChoice()
-const computerSelection = rps()
+    let round = "";
+    
+    for(let i=0; i<5; i++){
+        let humanSelection = getHumanChoice();
+        let computerSelection = rps();
+        round = playRound(humanSelection, computerSelection);
+        if(round === "win"){
+            humanScore++;
+        }
+        else if(round === "lost"){
+            computerScore++;
+        }
+    }
 
-console.log(playRound(humanSelection, computerSelection))
+    if(humanScore>computerScore){
+        console.log(`YOU WON🎆 Human Score: ${humanScore} vs Computer Score: ${computerScore}`)
+    }
+    else if (humanScore===computerScore){
+        console.log(`IT'S A DRAW😑 Human Score: ${humanScore} vs Computer Score: ${computerScore}`)
+    }
+    else{
+        console.log(`YOU LOST💀 Human Score: ${humanScore} vs Computer Score: ${computerScore}`)
+    }
+}
+
+playGame()
