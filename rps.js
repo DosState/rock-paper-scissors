@@ -16,13 +16,28 @@ function rps(){
 
 function getHumanChoice(){
     let choice = prompt("rock paper or scissors")
-    if (choice !== "rock" || choice !=="paper" || choice!=="scissors"){
-        return undefined
-    }
     return choice
 }
 
+function playRound(humanRps, computerRps){
+    humanRps = humanRps.toLowerCase()
+    computerRps = computerRps.toLowerCase()
+    if (humanRps === computerRps){
+        return `It's a draw you chose ${humanRps} and the computer chose ${computerRps}`
+    }
+    if (humanRps === "rock" && computerRps==="scissors" || humnanRps === "paper" && computerRps==="rock" || humnanRps === "scissors" && computerRps==="paper"){
+        return `You won! ${humanRps} beats ${computerRps}`
+    }
+    else{
+        return `You lose! ${computerRps} beats ${humanRps}`
+    }
+}
 
 console.log("Let's play!")
-console.log(rps())
-console.log(getHumanChoice())
+let computerScore = 0;
+let humanScore = 0;
+
+const humanSelection = getHumanChoice()
+const computerSelection = rps()
+
+console.log(playRound(humanSelection, computerSelection))
