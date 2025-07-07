@@ -66,4 +66,22 @@ function playGame(){
     }
 }
 
-playGame()
+const buttons = document.querySelectorAll("button")
+
+buttons.forEach((button) => {
+    button.addEventListener("click", (e)=>{
+        let target = e.target;
+        console.log(target.className);
+        switch(target.className){
+            case "rock":
+                playRound("rock",rps());
+                break;
+            case "paper":
+                playRound("paper",rps());
+                break;
+            case "scissors":
+                playRound("scissors",rps());
+                break;
+        }
+    })
+})
