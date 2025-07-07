@@ -53,52 +53,73 @@ function playRound(humanRps, computerRps){
 }
 
 function playGame(){
-    
-    console.log("Let's play!")
+
     let computerScore = 0;
     let humanScore = 0;
 
-    let round = "";
-    
-    for(let i=0; i<5; i++){
-        let humanSelection = getHumanChoice();
-        let computerSelection = rps();
-        round = playRound(humanSelection, computerSelection);
-        if(round === "win"){
-            humanScore++;
-        }
-        else if(round === "lost"){
-            computerScore++;
-        }
-    }
+    const buttons = document.querySelectorAll("button")
 
-    if(humanScore>computerScore){
-        console.log(`YOU WON🎆 Human Score: ${humanScore} vs Computer Score: ${computerScore}`)
-    }
-    else if (humanScore===computerScore){
-        console.log(`IT'S A DRAW😑 Human Score: ${humanScore} vs Computer Score: ${computerScore}`)
-    }
-    else{
-        console.log(`YOU LOST💀 Human Score: ${humanScore} vs Computer Score: ${computerScore}`)
-    }
+    buttons.forEach((button) => {
+        button.addEventListener("click", (e)=>{
+            let target = e.target;
+            let round = "";
+            const parent = document.querySelector(".results");
+            
+            if(humanScore>=5 || computerScore>=5){
+                humanScore=0;
+                computerScore=0;
+            }
+
+            console.log(target.className);
+            switch(target.className){
+                case "rock":
+                    round = playRound("rock",rps());
+                    break;
+                case "paper":
+                    round = playRound("paper",rps());
+                    break;
+                case "scissors":
+                    round = playRound("scissors",rps());
+                    break;
+            }
+            if(round === "win"){
+                humanScore++;
+            }
+            else if(round === "lost"){
+                computerScore++;
+            }
+            else if(round === "draw"){
+                humanScore++;
+                computerScore++;
+            }
+            parent.lastChild.textContent = parent.lastChild.textContent+`- User Score: ${humanScore} vs Computer score: ${computerScore}`;
+
+            if(humanScore>computerScore && humanScore===5){
+                const parent = document.querySelector(".results");
+                const div = document.createElement("div");
+                div.setAttribute("style", "border: 1px solid grey; margin: 0 5 0 5;");
+                div.textContent = `YOU WON🎆 Human Score: ${humanScore} vs Computer Score: ${computerScore}`;
+                parent.appendChild(div);
+                return
+            }
+            else if (humanScore===computerScore && humanScore==5){
+                const parent = document.querySelector(".results");
+                const div = document.createElement("div");
+                div.setAttribute("style", "border: 1px solid grey; margin: 0 5 0 5;");
+                div.textContent = `IT'S A DRAW😑 Human Score: ${humanScore} vs Computer Score: ${computerScore}`;
+                parent.appendChild(div);
+                return
+            }
+            else if (humanScore<computerScore && computerScore===5){
+                const parent = document.querySelector(".results");
+                const div = document.createElement("div");
+                div.setAttribute("style", "border: 1px solid grey; margin: 0 5 0 5;");
+                div.textContent = `YOU LOST💀 Human Score: ${humanScore} vs Computer Score: ${computerScore}`;
+                parent.appendChild(div);
+                return
+            }
+        })
+    })
 }
 
-const buttons = document.querySelectorAll("button")
-
-buttons.forEach((button) => {
-    button.addEventListener("click", (e)=>{
-        let target = e.target;
-        console.log(target.className);
-        switch(target.className){
-            case "rock":
-                playRound("rock",rps());
-                break;
-            case "paper":
-                playRound("paper",rps());
-                break;
-            case "scissors":
-                playRound("scissors",rps());
-                break;
-        }
-    })
-})
+playGame()
