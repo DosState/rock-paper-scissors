@@ -20,23 +20,40 @@ function getHumanChoice(){
 }
 
 function playRound(humanRps, computerRps){
-    humanRps = humanRps.toLowerCase()
-    computerRps = computerRps.toLowerCase()
+    humanRps = humanRps.toLowerCase();
+    computerRps = computerRps.toLowerCase();
+
+    const parent = document.querySelector(".results");
+    const div = document.createElement("div");
+    div.setAttribute("style", "border: 1px solid grey; margin: 0 5 0 5;");
+    
+    // Function to convert choice to emoji
+    function choiceToEmoji(choice) {
+        if (choice === "rock") return "🪨";
+        if (choice === "paper") return "🧻";
+        if (choice === "scissors") return "🔪";
+        return choice
+    }
+    
     if (humanRps === computerRps){
-        console.log(`It's a draw you chose ${humanRps} and the computer chose ${computerRps}`)
+        div.textContent = `It's a draw you chose ${choiceToEmoji(humanRps)} and the computer chose ${choiceToEmoji(computerRps)}`;
+        parent.appendChild(div);
         return "draw"
     }
     if (humanRps === "rock" && computerRps==="scissors" || humanRps === "paper" && computerRps==="rock" || humanRps === "scissors" && computerRps==="paper"){
-        console.log(`You won! ${humanRps} beats ${computerRps}`)
+        div.textContent = `You won! ${choiceToEmoji(humanRps)} beats ${choiceToEmoji(computerRps)}`;
+        parent.appendChild(div);
         return "win"
     }
     else{
-        console.log(`You lose! ${computerRps} beats ${humanRps}`)
+        div.textContent = `You lose! ${choiceToEmoji(computerRps)} beats ${choiceToEmoji(humanRps)}`;
+        parent.appendChild(div);
         return "lost"
     }
 }
 
 function playGame(){
+    
     console.log("Let's play!")
     let computerScore = 0;
     let humanScore = 0;

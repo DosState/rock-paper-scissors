@@ -1,0 +1,83 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    background-color: #F4CDDF;
+    --summer-green: #1FB796; 
+    --dark-green: #1BA385;
+    --opal: #CDF4EC;
+    --jagged-ice: #93E2D1;
+    --default-radius: 20px;
+  }
+  
+  button {
+    outline: none;
+    box-shadow: none;
+    border: none;
+    margin: 0px;
+    padding: 14px 0px;
+    cursor: pointer;
+    font-size: 28px;
+    width: 200px;
+    letter-spacing: 1px;
+    background-color: var(--jagged-ice);
+    transition: background-color 250ms ease-in-out, 
+                  transform 150ms ease;
+    font-family: 'VT323', monospace;
+  }
+  
+  button:first-child {
+    border-top-left-radius: var(--default-radius);
+    border-bottom-left-radius: var(--default-radius);
+  }
+  
+  button:last-child {
+    border-top-right-radius: var(--default-radius);
+    border-bottom-right-radius: var(--default-radius);
+  }
+  
+  button:hover {
+    background-color: var(--opal);
+    animation-duration: 0.65s;
+    animation-name: transformit;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  
+  @keyframes transformit {
+    from {
+      transform: translate(0px,0px);
+      background-color: var(--summer-green);
+    }
+  
+    to {
+      transform: translate(0px,-6px);
+      background-color: var(--opal);
+    }
+  }
+  
+  button:focus {
+    background-color: var(--dark-green);
+    animation: none;
+  }
+  
+  .multi-button {
+    display: flex;
+    border-radius: calc(var(--default-radius) + 2px);
+    background-color: rgba(124, 77, 98, 0.8);
+    border: 2px solid rgba(124, 77, 98, 0.3);
+  }
+
+  .results{
+    padding:5px;
+    width : 30vW;
+    background-color: #bb678e;
+    border : 2px solid white;
+  }
+
+  div{
+    text-align: center;
+    border-radius: var(--default-radius);
+  }
